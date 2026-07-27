@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <title>ChatBeat</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
         * { box-sizing: border-box; }
@@ -150,83 +150,38 @@
 .comments-section.show { display:block }
 .comment { display:flex; gap:8px; margin:6px 0; font-size:14px; }
 .comment-avatar {width:28px; height:28px; border-radius:50%;}
-.comment-bubble { position: relative; }
 .comment-bubble { background:#2a3942; padding:6px 10px; border-radius:18px; flex:1 }
 .comment-input-row { display:flex; gap:6px; margin-top:6px; align-items:center }
 .comment-input-row input { flex:1; background:#2a3942; color:white; border-radius:20px; padding:8px 12px }
 .comment-input-row button { width:40px; height:40px; border-radius:50%; padding:0; font-size:16px; min-width:40px }
-/* 1. MAKE VIDEO CARD A CONTAINER */
-.video-card { 
-  height: 100dvh; 
-  width:100%; 
-  position:relative; /* KEY FOR COMMENTS */
-  scroll-snap-align: start; 
-  display:flex; 
-  align-items:center; 
-  justify-content:center; 
-}
-.video-card video { width:100%; height:100%; object-fit: contain }
-
-/* 2. FULL COMMENTS SECTION - SLIDES UP */
 .video-comments-section {
-  display: none;
-  position: absolute; /* <-- floats on top */
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 70vh; /* 70% of screen */
-  max-height: 500px;
-  background: #111; /* solid so you can see */
-  border-top: 1px solid #333;
-  border-radius: 20px 20px 0 0;
-  z-index: 99; /* on top of video */
+  display: none; /* hidden by default */
+  padding: 10px;
+  max-height: 300px;
   overflow-y: auto;
-  padding-bottom: 60px; /* space for input */
-  animation: slideUp 0.3s ease;
+  background: rgba(0,0,0,0.3);
 }
-.video-comments-section.show { display:block; }
-
-@keyframes slideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-}
-
-/* 3. COMMENT ITEMS */
-.video-comment { display:flex; gap:8px; margin:6px 0; font-size:14px; position:relative; padding:5px 10px }
+.video-comments-section.show { display: block }
+.video-comment { display:flex; gap:8px; margin:6px 0; font-size:14px; }
 .video-comment-avatar {width:28px; height:28px; border-radius:50%;}
 .video-comment-bubble { background:#2a3942; padding:6px 10px; border-radius:18px; flex:1 }
-.del-btn { position:absolute; right:5px; top:5px; background:red; color:white; border:none; border-radius:50%; width:18px; height:18px; font-size:12px; cursor:pointer }
-
-/* 4. INPUT STICKS TO BOTTOM */
-.video-comment-input-row { 
-  position: sticky;
-  bottom: 0;
-  background: #111;
-  display:flex; 
-  gap:6px; 
-  padding:10px; 
-  align-items:center;
-  border-top: 1px solid #333;
-}
-.video-comment-input-row input { flex:1; background:#2a3942; color:white; border-radius:20px; padding:8px 12px; border:none }
-.video-comment-input-row button { width:40px; height:40px; border-radius:50%; padding:0; font-size:16px; min-width:40px; border:none }
-
-/* 5. SHARE POPUP - KEEP YOURS, JUST ADD THIS */
-.share-popup { 
-  position:fixed; bottom:0; left:0; right:0; top:auto; transform:none;
-  background:#1a1a1a; padding:20px; border-radius:20px 20px 0 0; 
-  z-index:9999; display:none; border:2px solid #00C896; width:100%; 
-}
-.share-popup button { background:#2a3942; border:none; color:white; padding:10px; border-radius:10px; font-size:12px; cursor:pointer }
+.video-comment-input-row { display:flex; gap:6px; margin-top:6px; align-items:center }
+.video-comment-input-row input { flex:1; background:#2a3942; color:white; border-radius:20px; padding:8px 12px }
+.video-comment-input-row button { width:40px; height:40px; border-radius:50%; padding:0; font-size:16px; min-width:40px }
+.bubble-reactions { display:flex; gap:2px; margin-top:3px; font-size:11px; position:absolute; bottom:-10px; left:10px; background:#3a3b3c; border-radius:12px; padding:2px 4px; cursor:pointer; z-index:2 }
+.share-popup { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#202c33; padding:20px; border-radius:15px; z-index:9999; display:none; border:2px solid #00C896; width:90%; max-width:300px }
 
 .settings-popup { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#202c33; padding:20px; border-radius:15px; z-index:9999; display:none; border:2px solid #00C896; width:90%; max-width:350px; max-height:90vh; overflow-y:auto }
 .settings-popup.show { display:block }
-
-/* 6. OTHER STUFF YOU HAD - KEEP THESE */
+    
+#videos-section { display:none; height: 100dvh; overflow-y: scroll; scroll-snap-type: y mandatory; background:#000 }
+.video-card { height: 100dvh; width:100%; position:relative; scroll-snap-align: start; display:flex; align-items:center; justify-content:center; padding-top: 0px; padding-bottom: 0px }
+.video-card video { width:100%; height:100%; object-fit: contain }
 .video-info { position:absolute; bottom:95px; left:10px; right:70px }
 .video-info h4 { margin:5px 0; color:#fff; text-shadow:0 0 5px #000 }
-#videos-section { display:none; height: 100dvh; overflow-y: scroll; scroll-snap-type: y mandatory; background:#000 }
+.follow-btn { background:#00C896; padding:4px 10px; border-radius:15px; font-size:12px; border:none; color:white }
 .add-video-btn { position:fixed; bottom:20px; left:60%; width:48px; height:48px; border-radius:50%; font-size:24px; z-index:20 }
+/* DM LIST */
 .dm-list { padding:10px }
 .dm-item { display:flex; gap:10px; padding:12px; background:#202c33; border-radius:12px; margin:8px 0; cursor:pointer }
 .dm-item img { width:45px; height:45px; border-radius:50% }
@@ -302,28 +257,16 @@ font-size:22px;
 @keyframes spin{
 from{transform:rotate(0deg);}
 to{transform:rotate(360deg);}
-}   
+} 
+{ 
+  
+
 .profile-section {
   margin-bottom: 15px;
   line-height: 1.6;
 }
-.user-profile-popup {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7);
-  z-index: 99999; /* make sure it's above footer */
-  overflow-y: auto;
-  padding: 20px;
-}
-.user-profile-popup.show {
-  display: block;
-}
-.reaction{ font-size:16px; position:absolute; margin-top:-15px; margin-left:5px; background:#2a3942; border-radius:12px; padding:2px 6px }
-.bubble{ position:relative }
 
-</style>
+  </style>
 </head>
 <body>
 
@@ -341,24 +284,24 @@ to{transform:rotate(360deg);}
 </div>
   
 <div id="app">
+  <!-- FACEBOOK STYLE HEADER - FIXED: REMOVED DOUBLE TOPBAR -->
   <div class="topbar">
   <div class="topbar-brand">
     <h2 id="logo-btn">ChatBeat</h2>
   </div>
   <div class="topbar-icons">
-    <button class="icon-btn" id="settings-btn" onclick="openSettings(event)">⚙️</button>
+    <button class="icon-btn" id="settings-btn" onclick="openSettings()">⚙️</button>
     <button class="icon-btn" id="videos-btn" onclick="openVideos()">🎥<span class="badge" id="video-badge" style="display:none">0</span></button>
     <button class="icon-btn" id="dm-btn" onclick="openDMs()">✉️<span class="badge" id="dm-badge" style="display:none">0</span></button>
     <button class="icon-btn" id="friends-btn" onclick="openFriends()">👥<span class="badge" id="friend-badge" style="display:none">0</span></button>
     <button class="icon-btn" id="profile-icon-btn">👤</button>
     <button class="icon-btn" id="chat-icon-btn">💬<span class="badge" id="chat-badge" style="display:none">0</span></button>
-    <button class="icon-btn" id="search-btn" onclick="openSearch()">🔍<span class="badge" id="search-badge" style="display:none">0</span></button>
   </div>
 </div>
     
 <div id="profile-box" class="profile-box">
-    <img id="profile-pic" src="https://ui-avatars.com/api/?name=U&background=00C896&color=fff" alt="profile picture">
-    <h3 id="my-name">Loading...</h3>
+    <img id="profile-pic" src="https://ui-avatars.com/api/?name=U&background=00C896&color=fff">
+    <h3 id="my-name"></h3>
     <p id="my-bio" style="font-size:13px; opacity:0.8; margin:4px 0"></p>
     <p id="my-location" style="font-size:12px; opacity:0.7"></p>
     <div id="linked-accounts" style="font-size:12px; margin-top:8px"></div>
@@ -371,11 +314,9 @@ to{transform:rotate(360deg);}
 
   <div id="feed-section">
     <div class="post-box">
-      <textarea id="post-text" placeholder="What's on your mind?" onkeyup="handleMentionsAndTags(event)"></textarea>
+      <textarea id="post-text" placeholder="What's on your mind?"></textarea>
       <button id="post-img-btn">📷</button>
       <input id="post-file" type="file" accept="image/*" style="display:none">
-  <div id="mention-suggestions" style="background:#2a3942; border-radius:8px; display:none; position:absolute; top:50px; left:0; width:100%; z-index:10; max-height:200px; overflow-y:auto"></div>
-  <div id="hashtag-suggestions" style="background:#2a3942; border-radius:8px; display:none; position:absolute; top:50px; left:0; width:100%; z-index:9; max-height:200px; overflow-y:auto"></div>
       <button id="post-btn">Post</button>
     </div>
     <div id="feed"></div>
@@ -388,45 +329,21 @@ to{transform:rotate(360deg);}
   </div>
 
 <div id="dm-chat-section" style="display:none">
-<div class="chat-header"><button id="dm-back-btn" onclick="backToFeed()">← Back</button><h3 id="dm-chat-name">DM</h3></div>
-  
-  <div id="dm-list" class="dm-list"></div>
+  <div class="chat-header"><button onclick="backToFeed()">← Back</button><h3 id="dm-chat-name">DM</h3></div>
+  <div id="dm-chat" class="dm-list"></div>
+  <div class="chat-input-area">
+    <button id="dm-img-btn">📷</button>
+    <input id="dm-file" type="file" accept="image/*" style="display:none">
+    <input id="dm-input" placeholder="Message...">
+    <button id="dm-record-btn">🎤</button>
+    <button id="send-dm">➤</button>
+  </div>
+</div>
 
-  <div id="dm-active-chat" style="display:none">
-    <div class="chat-header"><button onclick="backToDMList()">← Back</button><h3 id="dm-chat-name-2">DM</h3></div>
-    <div id="dm-messages" style="height: calc(100vh - 200px); overflow-y:auto; padding:10px; display:flex; flex-direction:column; gap:2px"></div>
-    <div id="dm-reply-bar" style="display:none; background:#1f2c33; padding:8px 12px; border-left:3px solid #00C896">
-  <div style="display:flex; justify-content:space-between; align-items:center">
-    <div>
-      <small style="color:#00C896">Replying to</small><br>
-      <small id="dm-reply-text" style="opacity:0.8"></small>
-    </div>
-    <button onclick="cancelReply()" style="background:none; border:none; font-size:20px; color:#fff">×</button>
-  </div>
-</div>
-    <div class="chat-input-area">
-      <button id="dm-img-btn">📷</button>
-      <input id="dm-file" type="file" accept="image/*" style="display:none">
-      <input id="dm-input" placeholder="Message...">
-      <button id="dm-record-btn">🎤</button>
-      <button id="send-dm">➤</button>
-    </div>
-  </div>
-</div>
-  
   <div id="friends-section" style="display:none">
-  <div class="chat-header"><button onclick="backToFeed()">← Back</button><h3>Friends</h3></div>
-  
-  <div style="display:flex; gap:4px; padding:8px; overflow-x:auto">
-    <button onclick="showFriendTab('friends')" id="f-tab-friends" style="flex:1; background:#00C896; padding:8px 4px; font-size:12px">Friends</button>
-    <button onclick="showFriendTab('mutuals')" id="f-tab-mutuals" style="flex:1; background:#2a3942; padding:8px 4px; font-size:12px">Mutuals</button>
-    <button onclick="showFriendTab('followers')" id="f-tab-followers" style="flex:1; background:#2a3942; padding:8px 4px; font-size:12px">Followers</button>
-    <button onclick="showFriendTab('following')" id="f-tab-following" style="flex:1; background:#2a3942; padding:8px 4px; font-size:12px">Following</button>
-    <button onclick="showFriendTab('suggested')" id="f-tab-suggested" style="flex:1; background:#2a3942; padding:8px 4px; font-size:12px">Suggested</button>
+    <div class="chat-header"><button onclick="backToFeed()">← Back</button><h3>Friends</h3></div>
+    <div id="friends-list" class="friends-list"></div>
   </div>
-  
-  <div id="friends-list" class="friends-list"></div>
-</div>
 
   <div id="chat-section" style="display:none;">
     <div class="chat-header">
@@ -460,7 +377,7 @@ to{transform:rotate(360deg);}
 
 <div id="profile-popup" class="profile-popup">
   <span class="profile-popup-close" onclick="closeProfilePopup()">×</span>
-  <img id="profile-popup-img" src="" alt="popup image" onclick="event.stopPropagation()">
+  <img id="profile-popup-img" src="" onclick="event.stopPropagation()">
 </div>
 
   <div id="edit-profile-popup" class="settings-popup">
@@ -505,34 +422,20 @@ to{transform:rotate(360deg);}
   <button onclick="closeEditProfile()">Cancel</button>
 </div>
 
-<div class="share-popup" id="video-share-popup"></div>
-
-<div id="user-profile-popup" class="user-profile-popup" style="max-width:400px">
-  <span onclick="closeUserProfile()" style="position:absolute; top:10px; right:15px; font-size:30px; cursor:pointer">×</span>
-  <div style="text-align:center">
-    <img id="up-pic" src="" alt="user profile" style="width:90px; height:90px; border-radius:50%; border:3px solid #00C896; object-fit:cover">
-    <h2 id="up-name" style="margin:8px 0 4px 0">Loading...</h2>
-    <p id="up-bio" style="font-size:13px; opacity:0.8"></p>
-    <p id="up-location" style="font-size:12px; opacity:0.7"></p>
-  </div>
+<div id="share-popup" class="share-popup">
+<h3>Share</h3>
+<button onclick="shareTo('whatsapp')">📱 WhatsApp</button>
+<button onclick="shareTo('facebook')">📘 Facebook</button>
+<button onclick="shareTo('instagram')">📸 Instagram</button>
+<button onclick="shareTo('tiktok')">🎵 TikTok</button>
+<button onclick="shareTo('twitter')">🐦 Twitter/X</button>
+<button onclick="shareTo('copy')">🔗 Copy Link</button>
+<button onclick="shareTo('more')">⋯ More</button>
+<hr>
+<button onclick="deleteVideo(currentVideoId)" style="background:#ff3b30">🗑 Delete</button>
+<button onclick="closeShare()">Cancel</button>
 </div>
 
-  <div style="display:flex; gap:8px; margin:15px 0">
-    <button id="up-follow-btn" onclick="followFromProfile()" style="flex:1">Follow</button>
-    <button onclick="messageFromProfile()" style="flex:1; background:#0077FF">Message</button>
-    <button onclick="pokeFromProfile()" style="width:50px">👉</button>
-  </div>
-
-  <div style="display:flex; gap:5px; margin-top:10px; border-bottom:1px solid #2a3942">
-  <button onclick="showUpTab('info')" id="up-tab-info" style="flex:1; background:transparent; border-bottom:2px solid #00C896">About</button>
-  <button onclick="showUpTab('posts')" id="up-tab-posts" style="flex:1; background:transparent">Posts</button>
-  <button onclick="showUpTab('videos')" id="up-tab-videos" style="flex:1; background:transparent">Videos</button>
-</div>
-
-<div id="up-tab-content-info" style="font-size:13px; text-align:left; max-height:200px; overflow-y:auto; margin-top:10px"></div>
-<div id="up-tab-content-posts" style="display:none; max-height:200px; overflow-y:auto; margin-top:10px"></div>
-<div id="up-tab-content-videos" style="display:none; max-height:200px; overflow-y:auto; margin-top:10px"></div>
-  
 <div id="settings-popup" class="settings-popup">
   <h3>⚙️ Settings</h3>
   
@@ -586,29 +489,27 @@ to{transform:rotate(360deg);}
   <button onclick="deleteAccount()" style="background:#ff3b30">🗑 Delete Account</button>
   <button onclick="closeSettings()">Cancel</button>
 </div>
-    
-<div id="search-popup" class="settings-popup" style="max-width:600px; height:80vh">
-  <div style="display:flex; justify-content:space-between; align-items:center">
-    <h3>🔍 Search ChatBeat</h3>
-    <span onclick="closeSearch()" style="font-size:30px; cursor:pointer">×</span>
-  </div>
-  
-  <input id="search-input" placeholder="Search posts, people, videos..." 
-         style="width:100%; background:#2a3942; color:white; border-radius:20px; padding:12px; border:none; margin:10px 0"
-         onkeyup="handleSearch(event)">
-  <div id="search-suggestions" style="margin-bottom:10px"></div>
 
-  <div style="display:flex; gap:8px; margin-bottom:10px">
-    <button onclick="setSearchTab('all')" id="s-tab-all" style="flex:1; background:#00C896">All</button>
-    <button onclick="setSearchTab('people')" id="s-tab-people" style="flex:1; background:#2a3942">People</button>
-    <button onclick="setSearchTab('posts')" id="s-tab-posts" style="flex:1; background:#2a3942">Posts</button>
-    <button onclick="setSearchTab('videos')" id="s-tab-videos" style="flex:1; background:#2a3942">Videos</button>
-  </div>
-
-  <div id="search-results" style="overflow-y:auto; height:calc(80vh - 180px)"></div>
-</div>
-    
 <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, deleteUser, sendPasswordResetEmail, updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+import { getDatabase, ref, set, get, query, orderByChild, equalTo, push, onChildAdded, onChildRemoved, remove, off, limitToLast, onValue } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD97-el91-ISWGkOhxWy4V_wXyOK6MJl0k",
+  authDomain: "chatbeat-71f80.firebaseapp.com",
+  databaseURL: "https://chatbeat-71f80-default-rtdb.firebaseio.com",
+  projectId: "chatbeat-71f80",
+  storageBucket: "chatbeat-71f80.appspot.com",
+  messagingSenderId: "38692820606",
+  appId: "1:38692820606:web:edce5abf8d103e1f6e6a2f",
+  measurementId: "G-KZ5KN31YFL"
+};
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const db = getDatabase(app);
 
 const colors = ['#00C896', '#0077FF', '#00FFD1', '#FF6B6B', '#F7DC6F', '#9B59B6', '#E67E22', '#1ABC9C'];
 const DEFAULT_PIC = 'https://ui-avatars.com/api/?name=U&background=00C896&color=fff';
@@ -627,26 +528,9 @@ let shareLink = '';
 let currentDM = null; 
 let currentVideoId = null;
 let dmIsRecording = false; let dmMediaRecorder; let dmAudioChunks = [];
-let allPostsCache = [];
-let allVideosCache = [];
-let trendingCache = [];
 const DRAG_THRESHOLD = 70;
 const REACTIONS = ['❤️','😂','😮','😢','😡','👎'];
 const LONG_PRESS = 500;
-let currentTheme = localStorage.getItem('chatbeat_theme') || '#00C896';
-let isLightMode = localStorage.getItem('chatbeat_light') === 'true';
-
-function applyTheme(){
-  const bg = isLightMode ? '#f0f2f5' : '#0b141a';
-  const card = isLightMode ? '#ffffff' : '#202c33';
-  const text = isLightMode ? '#000' : '#fff';
-  document.body.style.background = bg;
-  document.body.style.color = text;
-  document.querySelectorAll('.card, .post-box, .profile-box, .settings-popup, .share-popup').forEach(el=>{
-    el.style.background = card;
-    el.style.color = text;
-  })
-}
 
 window.openProfilePopup = (imgSrc) => {
   if(!imgSrc) return;
@@ -685,7 +569,7 @@ async function renderReactions(container, reactions, userReact){
     counts[emoji] = (counts[emoji]||0)+1;
     const u = await getUser(uid);
     if(!usersByEmoji[emoji]) usersByEmoji[emoji] = [];
-    usersByEmoji[emoji].push(u.name||"Unknown");
+    usersByEmoji[emoji].push(u.name);
   }
   if(Object.keys(counts).length > 0){
     let html = '<div class="react-bubble">';
@@ -706,12 +590,6 @@ async function renderReactions(container, reactions, userReact){
       setTimeout(()=>{ if(tip) tip.style.display = 'none' }, 3000);
     }
   }
-}
-function timeAgo(t){
-  const s = Math.floor((Date.now()-t)/1000); 
-  if(s<60) return s+'s'; 
-  if(s<3600) return Math.floor(s/60)+'m'; 
-  return Math.floor(s/3600)+'h';
 }
 
 function startAutoDelete() {
@@ -821,7 +699,7 @@ function setupNotifications(){
         unread++;
       }
     })
-    updateBadge('feed-badge', unread);
+    updateBadge('video-badge', unread);
   })
 
   // 3. VIDEOS UNREAD
@@ -875,7 +753,7 @@ onAuthStateChanged(auth, async (user) => {
    loadDMs();
    loadFriends();
    setupNotifications();
-   loadMyProfile();
+   loadMyProfile(); 
  } else {
    document.getElementById('cover').style.display = 'flex';
    document.getElementById('app').style.display = 'none';
@@ -928,9 +806,7 @@ document.getElementById('post-file').onchange = (e)=>{
 document.getElementById('post-btn').onclick = async () => {
   const text = document.getElementById('post-text').value.trim();
   if(!text &&!postImageData) return;
-  const hashtags = [...text.matchAll(/#(\w+)/g)].map(m => m[1].toLowerCase());
-  const mentions = [...text.matchAll(/@(\w+)/g)].map(m => m[1].toLowerCase());
-  await push(ref(db, 'posts'), { uid: currentUser.uid, text, hashtags, mentions, image: postImageData, timestamp: Date.now(), reactions:{}, comments:{},views:0 });
+  await push(ref(db, 'posts'), { uid: currentUser.uid, text, image: postImageData, timestamp: Date.now(), reactions:{}, comments:{} });
   document.getElementById('post-text').value = '';
   postImageData = null;
   document.getElementById('post-file').value = '';
@@ -943,46 +819,11 @@ async function getUser(uid){
   userCache[uid] = user;
   return user;
 }
-function linkify(text){
-  if(!text) return '';
-  return text
-   .replace(/#(\w+)/g, '<span onclick="searchTag(\'$1\')" style="color:#00C896; cursor:pointer">#$1</span>')
-   .replace(/@(\w+)/g, '<span onclick="searchUserByName(\'$1\')" style="color:#00C896; cursor:pointer">@$1</span>')
-}
-function loadComments(postKey){
-  off(ref(db, `posts/${postKey}/comments`));
-  const list = document.getElementById(`comment-list-${postKey}`);
-  if(!list) return;
-  list.innerHTML = '';
 
-  onChildAdded(ref(db, `posts/${postKey}/comments`), async (snap)=>{
-    const c = snap.val();
-    const u = await getUser(c.uid);
-    const delBtn = c.uid === currentUser.uid? `<button class="del-btn" onclick="deleteComment('${postKey}','${snap.key}')">×</button>` : '';
-    const div = document.createElement('div');
-    div.className = 'comment';
-    div.id = 'comment-' + snap.key;
-    div.innerHTML = `
-      <img class="comment-avatar" src="${u.profilePic}" onclick="openProfilePopup('${u.profilePic}')">
-      <div class="comment-bubble">
-        <b style="color:${u.color}" onclick="viewUserProfile('${c.uid}')">${u.name}</b><br>
-        ${c.text}
-        <div style="font-size:10px; opacity:0.6">${timeAgo(c.timestamp)}</div>
-        ${delBtn}
-      </div>
-    `;
-    list.appendChild(div);
-  })
-
-  onChildRemoved(ref(db, `posts/${postKey}/comments`), (snap)=>{
-    document.getElementById('comment-' + snap.key)?.remove();
-  })
-}
 function loadPosts() {
   off(ref(db, 'posts')); document.getElementById('feed').innerHTML = '';
   onChildAdded(query(ref(db, 'posts'), orderByChild('timestamp'), limitToLast(50)), async (snap) => {
-    const post = snap.val(); const postKey = snap.key; 
-  if(!allPostsCache.find(p=>p.id===postKey)) allPostsCache.push({id: postKey, ...post}); const user = await getUser(post.uid); const userPic = user.profilePic || DEFAULT_PIC;
+    const post = snap.val(); const postKey = snap.key; const user = await getUser(post.uid); const userPic = user.profilePic || DEFAULT_PIC;
     const userReact = post.reactions?.[currentUser.uid] || null;
     const postDiv = document.createElement('div'); postDiv.className = 'card'; postDiv.id = 'post-' + postKey;
     let delBtn = post.uid === currentUser.uid? `<button class="del-btn" onclick="deletePost('${postKey}')">×</button>` : '';
@@ -995,7 +836,7 @@ function loadPosts() {
       <img class="card-avatar" src="${userPic}" onclick="openProfilePopup('${userPic}')">
       <div class="name" style="color:${user.color}" onclick="viewUserProfile('${post.uid}')">${user.name}</div>
     </div>
-    <div>${linkify(post.text||'')}</div>${imgHtml}
+    <div>${post.text||''}</div>${imgHtml}
     <div class="post-stats" onclick="toggleComments('${postKey}')">
       <span id="react-count-${postKey}">${reactCount} Reactions</span>
       <span id="comment-count-${postKey}">${commentCount} Comments</span>
@@ -1044,9 +885,8 @@ function loadPosts() {
 }
 window.deletePost = async (key) => {
   if(confirm("Delete this post?")) {
-    const el = document.getElementById('post-' + key); 
-    if(el) el.remove(); 
-    await remove(ref(db, 'posts/' + key));
+    const userPosts = query(ref(db, 'posts'), orderByChild('uid'), equalTo(currentUser.uid));
+    if(el) el.remove();
   }
 }
 window.reactToPost = async (key, emoji) => { await setReaction(`posts/${key}/reactions`, emoji); document.getElementById(`picker-${key}`).classList.remove('show'); }
@@ -1059,9 +899,50 @@ window.deleteComment = async (postKey, commentKey) => {
     if(el) el.remove();
   }
 }
+function loadVideoComments(videoId){
+  const list = document.getElementById(`v-comment-list-${videoId}`);
+  list.innerHTML = '';
 
-window.openShare = (link) => { shareLink = link; document.getElementById('video-share-popup').style.display = 'block'; }
-window.closeShare = () => document.getElementById('video-share-popup').style.display = 'none';
+  onChildAdded(ref(db, `videos/${videoId}/comments`), async (snap)=>{
+    const c = snap.val();
+    const u = await getUser(c.uid);
+    const commentId = snap.key;
+
+    const div = document.createElement('div');
+    div.className = 'comment-as-post'; // SAME CLASS AS POSTS
+    div.id = 'v-comment-' + commentId;
+    let delBtn = c.uid === currentUser.uid? `<button class="del-btn" onclick="deleteVideoComment('${videoId}','${commentId}')">×</button>` : '';
+
+    div.innerHTML = `
+      <div class="post-header">
+        <img class="avatar" src="${u.profilePic}" onclick="openProfilePopup('${u.profilePic}')">
+        <div>
+          <div class="name" style="color:${u.color}" onclick="viewUserProfile('${c.uid}')">${u.name}</div>
+          <div class="time">${timeAgo(c.ts)}</div>
+        </div>
+        ${delBtn}
+      </div>
+      <div class="post-text">${c.text}</div>
+      <div class="post-actions">
+        <button onclick="likeVideoComment('${videoId}','${commentId}', this)">❤️ <span>0</span></button>
+      </div>
+    `;
+    list.appendChild(div);
+
+    // load likes for this video comment
+    onValue(ref(db, `videos/${videoId}/comments/${commentId}/likes`), s=>{
+      const span = div.querySelector('.post-actions span');
+      if(span) span.innerText = s.size;
+    })
+  })
+
+  onChildRemoved(ref(db, `videos/${videoId}/comments`), (snap)=>{
+    const el = document.getElementById('v-comment-' + snap.key);
+    if(el) el.remove();
+  })
+}
+window.openShare = (link) => { shareLink = link; document.getElementById('share-popup').classList.add('show'); }
+window.closeShare = () => document.getElementById('share-popup').classList.remove('show');
 window.shareTo = (type) => {
   if(type==='whatsapp') window.open(`https://wa.me/?text=${encodeURIComponent(shareLink)}`,'_blank');
   if(type==='facebook') window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`,'_blank');
@@ -1071,6 +952,81 @@ window.shareTo = (type) => {
   if(type=="twitter"){ window.open("https://twitter.com/intent/tweet?url="+encodeURIComponent(shareLink)); }
   if(type=="more"){ if(navigator.share){ navigator.share({ title:"ChatBeat", url:shareLink }); } }
   closeShare();
+}
+window.likeVideo = async (id, el)=>{
+    const r = ref(db, `videos/${id}/likes/${currentUser.uid}`);
+    const s = await get(r); 
+    if(s.exists()) await remove(r);
+    else await set(r,true);
+    
+    // Update the number in the sidebar
+    const countSpan = el.querySelector('span');
+    let count = parseInt(countSpan.innerText) || 0;
+    countSpan.innerText = s.exists() ? count - 1 : count + 1;
+}
+window.toggleVideoComments = (videoId) => {
+  document.getElementById(`v-comments-${videoId}`).classList.toggle('show');
+}
+
+window.sendVideoComment = (videoId) => {
+  const inp = document.getElementById(`v-comment-input-${videoId}`);
+  if(!inp.value.trim()) return;
+  push(ref(db, `videos/${videoId}/comments`), {
+    uid: currentUser.uid,
+    text: inp.value,
+  timestamp: Date.now()
+  });
+  inp.value = '';
+}
+
+// VIDEOS TIKTOK STYLE
+function loadVideos(){
+  off(ref(db, 'videos')); 
+  document.getElementById('video-feed').innerHTML = '';
+
+  // ADD THIS: remove from DOM when deleted in DB
+  onChildRemoved(ref(db, 'videos'), (snap) => {
+    const videoCard = document.querySelector(`.video-card[data-id="${snap.key}"]`);
+    if(videoCard) videoCard.remove();
+  });
+
+  onChildAdded(query(ref(db, 'videos'), orderByChild('timestamp'), limitToLast(20)), async (snap) => {
+    const v = snap.val(); 
+    const u = await getUser(v.uid);
+    const div = document.createElement('div'); 
+    div.className = 'video-card';
+    div.setAttribute('data-id', snap.key); // ADD THIS so we can find it to delete
+    div.innerHTML = `
+  <video src="${v.video}" loop playsinline onclick="this.paused?this.play():this.pause()"></video>
+  <div class="video-info">
+    <h4>@${u.name}</h4>
+    <p>${v.desc || ""}</p>
+  </div>
+  <div class="video-sidebar">
+    <div class="profile-wrap">
+        <img class="side-profile" src="${u.profilePic}">
+        <span class="plus-badge">+</span>
+    </div>
+    <div class="video-action" onclick="likeVideo('${snap.key}', this)">❤️<span>${Object.keys(v.likes || {}).length}</span></div>
+    <div class="video-action" onclick="toggleVideoComments('${snap.key}')">💬<span>${Object.keys(v.comments || {}).length}</span></div>
+    <div class="video-action" onclick="favoriteVideo('${snap.key}', this)">🔖<span>${Object.keys(v.favorites || {}).length}</span></div>
+    <div class="video-action" onclick="openVideoShare('${snap.key}')">↗<span>${Object.keys(v.shares || {}).length}</span></div>
+    <div class="music-disc">🎵</div>
+  </div>
+  
+  <!-- THIS WAS MISSING -->
+  <div class="video-comments-section" id="v-comments-${snap.key}">
+    <div id="v-comment-list-${snap.key}" class="video-comment-list"></div> 
+    <div class="video-comment-input-row">
+      <input id="v-comment-input-${snap.key}" placeholder="Add comment...">
+      <button onclick="sendVideoComment('${snap.key}')">➤</button>
+    </div>
+  </div>
+`;
+    document.getElementById('video-feed').appendChild(div);
+videoObserver.observe(div);
+loadVideoComments(snap.key);
+  })
 }
 
 // VIDEO UPLOAD
@@ -1095,10 +1051,9 @@ async function uploadVideo(fileBlob){
   const reader = new FileReader();
   reader.onload = async ()=>{
     const desc = prompt("Add a description:");
-    const hashtags = [...(desc||'').matchAll(/#(\w+)/g)].map(m => m[1].toLowerCase());
     await push(ref(db, 'videos'), {
-      uid: currentUser.uid, video: reader.result, desc, hashtags, timestamp: Date.now(),
-      reactions:{}, comments:{}, likes:{}, favorites:{}, shares:{}, views:0
+      uid: currentUser.uid, video: reader.result, desc, timestamp: Date.now(),
+      reactions:{}, comments:{}, likes:{}, favorites:{}, shares:{}
     });
     alert("Video posted!")
   }
@@ -1130,254 +1085,119 @@ function compressVideo(file){
 
 // DMs
 function loadDMs(){
-  off(ref(db, 'dmChats')); 
-  document.getElementById('dm-list').innerHTML = '<p style="text-align:center; opacity:0.6">Loading chats...</p>';
-  document.getElementById('dm-active-chat').style.display = 'none'; // hide chat
-  document.getElementById('dm-list').style.display = 'block'; // show list
-  
+  off(ref(db, 'dmChats')); document.getElementById('dm-chat').innerHTML = '';
   onValue(ref(db, 'dmChats'), async (snap)=>{
-    document.getElementById('dm-list').innerHTML = ''; 
-    let unread = 0;
-    let hasAny = false;
-    const promises = [];
-
+    document.getElementById('dm-chat').innerHTML = ''; let unread = 0;
     snap.forEach(chatSnap=>{
-      const chatId = chatSnap.key; 
-      const chat = chatSnap.val(); 
-      
-      // ONLY SHOW IF: you are in chat AND there is at least 1 message
-      if(chatId.includes(currentUser.uid) && chat.lastMessage){
-        hasAny = true;
-        const otherUid = Object.keys(chat.members).find(id => id !== currentUser.uid);
-        
-        promises.push(getUser(otherUid).then(u=>{
-          if(chat.lastTimestamp > lastSeen.dms && chat.lastSender !== currentUser.uid) unread++;
-          
-          const div = document.createElement('div'); 
-          div.className = 'dm-item';
-          div.id = 'dm-' + chatId;
-          div.innerHTML = `
-            <img src="${u.profilePic}" onclick="openProfilePopup('${u.profilePic}')">
-            <div style="flex:1; cursor:pointer" onclick="openDM('${chatId}', '${otherUid}')">
-              <b>${u.name}</b><br>
-              <small style="opacity:0.8">${chat.lastSender === currentUser.uid ? 'You: ' : ''}${chat.lastMessage}</small>
-            </div>
-            <button onclick="event.stopPropagation(); deleteConversation('${chatId}')" style="background:#ff3b30; width:28px; height:28px; border-radius:50%; font-size:14px; padding:0">×</button>
-          `;
-          document.getElementById('dm-list').appendChild(div);
-        }))
+      const chatId = chatSnap.key; if(chatId.includes(currentUser.uid)){
+        const chat = chatSnap.val(); const otherUid = Object.keys(chat.members).find(id => id!== currentUser.uid);
+        getUser(otherUid).then(u=>{
+          if(chat.lastTimestamp > lastSeen.dms) unread++;
+          const div = document.createElement('div'); div.className = 'dm-item';
+          div.innerHTML = `<img src="${u.profilePic}"><div><b>${u.name}</b><br><small>${chat.lastMessage || ''}</small></div>`;
+          div.onclick = () => openDM(chatId, otherUid); document.getElementById('dm-chat').appendChild(div);
+        })
       }
-    }); 
-    
-    await Promise.all(promises);
-    if(!hasAny) document.getElementById('dm-list').innerHTML = '<p style="text-align:center; opacity:0.6">No messages yet</p>';
-    updateBadge('dm-badge', unread);
+    }); updateBadge('dm-badge', unread);
   })
-}
-
-window.backToDMList = () => {
-  document.getElementById('dm-active-chat').style.display = 'none'; // hide chat
-  document.getElementById('dm-list').style.display = 'block'; // show list
-  document.getElementById('dm-chat-name').innerText = 'DM';
-  document.getElementById('dm-back-btn').onclick = () => backToFeed(); // make back go to feed
-  loadDMs();
 }
 
 window.openDM = async (chatId, otherUid) => {
   currentDM = {chatId, otherUid};
   document.getElementById('feed-section').style.display = 'none';
-  document.getElementById('dm-list').style.display = 'none'; 
-  document.getElementById('dm-active-chat').style.display = 'block'; 
   document.getElementById('dm-chat-section').style.display = 'block';
-  document.getElementById('dm-chat-name').innerText = (await getUser(otherUid)).name;
-  document.getElementById('dm-back-btn').onclick = () => backToDMList(); // make back go to list
+  const u = await getUser(otherUid); document.getElementById('dm-chat-name').innerText = u.name;
   loadDMChat(chatId);
 }
-
-let replyingTo = null;
-let touchStartX = 0;
-
 function loadDMChat(chatId){
-  off(ref(db, `dmChats/${chatId}/messages`));
-  document.getElementById('dm-messages').innerHTML = '';
-
+  off(ref(db, `dmChats/${chatId}/messages`)); document.getElementById('dm-chat').innerHTML = '';
   onChildAdded(query(ref(db, `dmChats/${chatId}/messages`), orderByChild('timestamp'), limitToLast(50)), async (snap)=>{
     const msg = snap.val(); const isMe = msg.uid === currentUser.uid;
-    const div = document.createElement('div');
-    div.className = `bubble-wrapper ${isMe? 'me-wrapper' : 'other-wrapper'}`;
-    div.id = `dm-msg-${snap.key}`;
-
+    const div = document.createElement('div'); div.className = `bubble-wrapper ${isMe? 'me-wrapper' : 'other-wrapper'}`;
     let content = msg.text || (msg.image? `<img class="bubble-img" src="${msg.image}">` : `<audio controls src="${msg.audio}"></audio>`);
-
-    // Show quoted message if replying
-    let replyQuote = '';
-    if(msg.replyTo){
-      replyQuote = `<div style="background:#0004; border-left:2px solid #00C896; padding:4px 6px; border-radius:4px; margin-bottom:4px; font-size:12px">
-        <b style="color:#00C896">${msg.replyTo.name}</b><br>${msg.replyTo.text}
-      </div>`;
-    }
-
-    div.innerHTML = `
-      <div class="bubble ${isMe? 'me-bubble' : 'other-bubble'}"
-           ontouchstart="touchStart(event)"
-           ontouchend="touchEnd(event, '${chatId}', '${snap.key}', '${(msg.text||'').replace(/'/g,"\\'")}')"
-           oncontextmenu="event.preventDefault(); deleteDMMessage('${chatId}','${snap.key}')"
-           ondblclick="reactDMMessage('${chatId}','${snap.key}')">
-        ${replyQuote}
-        ${content}
-        ${msg.reaction? `<div class="reaction">${msg.reaction}</div>` : ''}
-      </div>
-    `;
-    document.getElementById('dm-messages').appendChild(div);
-    document.getElementById('dm-messages').scrollTop = document.getElementById('dm-messages').scrollHeight;
+    div.innerHTML = `<div class="bubble ${isMe? 'me-bubble' : 'other-bubble'}">${content}</div>`;
+    document.getElementById('dm-chat').appendChild(div); document.getElementById('dm-chat').scrollTop = document.getElementById('dm-chat').scrollHeight;
     if(msg.uid!== currentUser.uid) set(ref(db, `dmChats/${chatId}/messages/${snap.key}/seen`), true);
   })
 }
-
-// ADD THESE 2 FUNCTIONS BELOW IT IF YOU DON'T HAVE THEM YET
-window.deleteDMMessage = async (chatId, msgId) => {
-  if(confirm("Delete this message?")){
-    await remove(ref(db, `dmChats/${chatId}/messages/${msgId}`));
-    document.getElementById(`dm-msg-${msgId}`)?.remove();
-  }
-}
-
-window.reactDMMessage = async (chatId, msgId) => {
-  const reactions = ['❤️','😂','😮','😢','🔥','👍'];
-  const choice = prompt("React with: " + reactions.join(' '));
-  if(reactions.includes(choice)){
-    await set(ref(db, `dmChats/${chatId}/messages/${msgId}/reaction`), choice);
-  }
-}
-
-function touchStart(e){
-  touchStartX = e.changedTouches[0].clientX;
-}
-
-function touchEnd(e, chatId, msgId, msgText){
-  let touchEndX = e.changedTouches[0].clientX;
-  let diff = touchEndX - touchStartX;
-  if(diff > 60){ // swiped right more than 60px
-    startReply(chatId, msgId, msgText);
-  }
-}
-
-async function startReply(chatId, msgId, msgText){
-  const u = await getUser(currentDM.otherUid);
-  replyingTo = {msgId, text: msgText, name: u.name};
-  document.getElementById('dm-reply-bar').style.display = 'block';
-  document.getElementById('dm-reply-text').innerText = msgText.substring(0,50) + '...';
-  document.getElementById('dm-input').focus();
-}
-
-window.cancelReply = () => {
-  replyingTo = null;
-  document.getElementById('dm-reply-bar').style.display = 'none';
-}
-
-// UPDATE YOUR SEND BUTTON TO SAVE REPLY
 document.getElementById('send-dm').onclick = async () => {
-  const text = document.getElementById('dm-input').value.trim();
-  if(!text) return;
-  document.getElementById('dm-input').value = '';
-
-  const msgData = {uid: currentUser.uid, text, timestamp: Date.now(), seen: false};
-  if(replyingTo) msgData.replyTo = replyingTo;
-
-  await push(ref(db, `dmChats/${currentDM.chatId}/messages`), msgData);
+  const text = document.getElementById('dm-input').value.trim(); if(!text) return; document.getElementById('dm-input').value = '';
+  await push(ref(db, `dmChats/${currentDM.chatId}/messages`), {uid: currentUser.uid, text, timestamp: Date.now(), seen: false});
   await set(ref(db, `dmChats/${currentDM.chatId}/lastMessage`), text);
   await set(ref(db, `dmChats/${currentDM.chatId}/lastSender`), currentUser.uid);
   await set(ref(db, `dmChats/${currentDM.chatId}/lastTimestamp`), Date.now());
-
-  cancelReply();
-}
-
-window.deleteConversation = async (chatId) => {
-  if(confirm("Delete this chat?")){
-    await remove(ref(db, `dmChats/${chatId}`));
-    document.getElementById('dm-' + chatId)?.remove();
-  }
 }
 
 // SETTINGS
-window.openSettings=(e) => {e.stopPropagation(); document.getElementById('settings-popup').classList.add('show'); }
+window.openSettings = () => document.getElementById('settings-popup').classList.add('show');
 window.closeSettings = () => document.getElementById('settings-popup').classList.remove('show');
 window.signOutUser = () => { signOut(auth); closeSettings(); }
 window.deleteAccount = async () => { if(confirm("Delete account forever?")){ await remove(ref(db, 'users/'+currentUser.uid)); await deleteUser(currentUser); } }
 
-// FOLLOWING
-let allUsersCache = [];
-let myFriends = [];
-let myFollowing = [];
-let myFollowers = [];
-
-function showFriendTab(tab){
-  ['friends','mutuals','followers','following','suggested'].forEach(t=>{
-    document.getElementById(`f-tab-${t}`).style.background = t===tab? '#00C896' : '#2a3942';
-  })
-  renderFriendList(tab);
-}
-
-function renderFriendList(tab){
-  const list = document.getElementById('friends-list');
-  list.innerHTML = '';
-  let users = [];
-
-  if(tab === 'friends') users = allUsersCache.filter(u => myFriends.includes(u.uid));
-  if(tab === 'mutuals') users = allUsersCache.filter(u => myFriends.includes(u.uid) && myFollowing.includes(u.uid));
-  if(tab === 'followers') users = allUsersCache.filter(u => myFollowers.includes(u.uid));
-  if(tab === 'following') users = allUsersCache.filter(u => myFollowing.includes(u.uid));
-  if(tab === 'suggested') users = allUsersCache.filter(u => !myFriends.includes(u.uid) && !myFollowing.includes(u.uid));
-
-  // Sort suggested by location - people close to you first
-  if(tab === 'suggested'){
-    const myData = allUsersCache.find(u=>u.uid===currentUser.uid) || {};
-    users.sort((a,b)=>{
-      const aScore = (a.city === myData.city? 10 : 0) + (a.province === myData.province? 5 : 0);
-      const bScore = (b.city === myData.city? 10 : 0) + (b.province === myData.province? 5 : 0);
-      return bScore - aScore;
-    })
-  }
-
-  users.forEach(u=>{
-    const isFriend = myFriends.includes(u.uid);
-    const locationTag = u.city? `📍 ${u.city}` : '';
-    const div = document.createElement('div');
-    div.className = 'friend-item';
-    div.innerHTML = `
-      <div onclick="viewUserProfile('${u.uid}')" style="display:flex; gap:10px; align-items:center; cursor:pointer">
-        <img style="width:40px;height:40px;border-radius:50%" src="${u.profilePic}">
-        <div>
-          <b>${u.name}</b><br>
-          <small style="opacity:0.7">${locationTag}</small>
-        </div>
-      </div>
-      <button id="follow-${u.uid}" onclick="toggleFollow('${u.uid}')">${isFriend? 'Friends' : 'Follow'}</button>
-    `;
-    list.appendChild(div);
+window.openVideoShare = (id)=>{
+  currentVideoId = id;
+  shareLink = window.location.origin+"#video-"+id; 
+  document.getElementById("share-popup").classList.add("show");
+  
+  // show/hide delete button based on owner
+  get(ref(db,"videos/"+id)).then(s=>{
+    const delBtn = document.getElementById('delete-video-btn');
+    if(s.exists() && s.val().uid === currentUser.uid){
+      delBtn.style.display = 'block';
+    } else {
+      delBtn.style.display = 'none';
+    }
   })
   
-  if(users.length === 0) list.innerHTML = '<p style="text-align:center; opacity:0.6">No one here</p>';
+  set(ref(db, `videos/${id}/shares/${currentUser.uid}`), Date.now());
 }
 
+// FOLLOWING
 function loadFriends(){
-  Promise.all([
-    get(ref(db, `friends/${currentUser.uid}`)),
-    get(ref(db, `users/${currentUser.uid}/following`)),
-    get(ref(db, `users/${currentUser.uid}/followers`)),
-    get(ref(db, 'users'))
-  ]).then(([friendsSnap, followingSnap, followersSnap, usersSnap])=>{
-    myFriends = friendsSnap.exists()? Object.keys(friendsSnap.val()) : [];
-    myFollowing = followingSnap.exists()? Object.keys(followingSnap.val()) : [];
-    myFollowers = followersSnap.exists()? Object.keys(followersSnap.val()) : [];
-    
-    allUsersCache = [];
-    usersSnap.forEach(uSnap=>{
-      if(uSnap.key !== currentUser.uid){
-        allUsersCache.push({uid: uSnap.key, ...uSnap.val()});
+  off(ref(db, 'friends/'+currentUser.uid));
+  document.getElementById('friends-list').innerHTML = '';
+
+  get(ref(db, 'users')).then(async (snap)=>{
+    const myData = await getUser(currentUser.uid);
+    const myFriendsSnap = await get(ref(db, 'friends/'+currentUser.uid));
+    const myFriends = myFriendsSnap.exists()? Object.keys(myFriendsSnap.val()) : [];
+
+    let users = [];
+    snap.forEach(uSnap=>{
+      if(uSnap.key!== currentUser.uid){
+        users.push({uid: uSnap.key,...uSnap.val()});
+      if(u.isPrivate && uSnap.key !== currentUser.uid) return; 
       }
     })
-    showFriendTab('friends'); // default to friends tab
+
+    // SORT: 1. Friends first 2. Same City 3. Same Province 4. Others
+    users.sort((a,b)=>{
+      const aIsFriend = myFriends.includes(a.uid)? 0 : 1;
+      const bIsFriend = myFriends.includes(b.uid)? 0 : 1;
+      if(aIsFriend!== bIsFriend) return aIsFriend - bIsFriend;
+
+      const aScore = (a.city === myData.city? 2 : 0) + (a.province === myData.province? 1 : 0);
+      const bScore = (b.city === myData.city? 2 : 0) + (b.province === myData.province? 1 : 0);
+      return bScore - aScore;
+    })
+
+    users.forEach(u=>{
+      const isFriend = myFriends.includes(u.uid);
+      const locationTag = u.city? `📍 ${u.city}, ${u.province || ''}` : '';
+      const div = document.createElement('div');
+      div.className = 'friend-item';
+      div.innerHTML = `
+        <div onclick="viewUserProfile('${u.uid}')" style="display:flex; gap:10px; align-items:center; cursor:pointer">
+          <img style="width:40px;height:40px;border-radius:50%" src="${u.profilePic}">
+          <div>
+            <b>${u.name}</b><br>
+            <small style="opacity:0.7">${locationTag}</small>
+          </div>
+        </div>
+        <button class="follow-btn" id="follow-${u.uid}" onclick="toggleFollow('${u.uid}')">${isFriend? 'Following' : 'Follow'}</button>
+      `;
+      document.getElementById('friends-list').appendChild(div);
+    })
   })
 }
 window.toggleFollow = async (uid) => {
@@ -1389,7 +1209,7 @@ window.toggleFollow = async (uid) => {
 
 // NAVIGATION - SINGLE COPY ONLY
 window.openVideos = () => {
-  lastSeen.videos = Date.now(); saveLastSeen(); updateBadge('video-badge', 0);
+  lastSeen.posts = Date.now(); lastSeen.videos = Date.now(); saveLastSeen(); updateBadge('video-badge', 0);
   document.getElementById('feed-section').style.display = 'none';
   document.getElementById('chat-section').style.display = 'none';
   document.getElementById('videos-section').style.display = 'block';
@@ -1416,7 +1236,6 @@ window.openFriends = () => {
   document.getElementById('profile-box').style.display = 'none';
 }
 window.backToFeed = () => {
-  lastSeen.posts = Date.now(); saveLastSeen(); updateBadge('feed-badge', 0)
   document.getElementById('feed-section').style.display = 'block';
   document.getElementById('chat-section').style.display = 'none';
   document.getElementById('videos-section').style.display = 'none';
@@ -1510,53 +1329,40 @@ function loadChat() {
 }
 
 async function renderMessage(snap, scroll){
-  try{
-    const msg = snap.val(); const msgKey = snap.key;
-    if(loadedMessages.has(msgKey)) return;
-    loadedMessages.add(msgKey); allMessagesCache[msgKey] = msg;
-    const user = await getUser(msg.uid); const userPic = user.profilePic || DEFAULT_PIC;
-    const isMe = msg.uid === currentUser.uid; const userReact = msg.reactions?.[currentUser.uid] || null; msg.name = user.name;
-    const wrapper = document.createElement('div');
-    wrapper.className = `bubble-wrapper ${isMe? 'me-wrapper' : 'other-wrapper'}`; wrapper.id = 'wrapper-' + msgKey;
-    let delBtn = isMe? `<button class="bubble-del" onclick="deleteMsg('${msgKey}')">×</button>` : '';
-
-    // FIXED: check if repliedMsg exists before using it
-    let replyHtml = '';
-if(msg.replyTo){
-  let repliedMsg = allMessagesCache[msg.replyTo];
-  if(!repliedMsg){
-    const replySnap = await get(ref(db, `globalChat/${msg.replyTo}`));
-    repliedMsg = replySnap.val();
-  }
-  if(repliedMsg){
-    const repliedUser = await getUser(repliedMsg.uid);
+  const msg = snap.val(); const msgKey = snap.key;
+  if(loadedMessages.has(msgKey)) return;
+  loadedMessages.add(msgKey); allMessagesCache[msgKey] = msg;
+  const user = await getUser(msg.uid); const userPic = user.profilePic || DEFAULT_PIC;
+  const isMe = msg.uid === currentUser.uid; const userReact = msg.reactions?.[currentUser.uid] || null; msg.name = user.name;
+  const wrapper = document.createElement('div');
+  wrapper.className = `bubble-wrapper ${isMe? 'me-wrapper' : 'other-wrapper'}`; wrapper.id = 'wrapper-' + msgKey;
+  let delBtn = isMe? `<button class="bubble-del" onclick="deleteMsg('${msgKey}')">×</button>` : '';
+  let replyHtml = '';
+  if(msg.replyTo && allMessagesCache[msg.replyTo]){
+    const repliedMsg = allMessagesCache[msg.replyTo]; const repliedUser = await getUser(repliedMsg.uid);
     replyHtml = `<div class="reply-quote"><div class="reply-quote-name">${repliedUser.name}</div><div class="reply-quote-text">${repliedMsg.text || 'Media'}</div></div>`;
   }
-}
-
-    let content = '';
-    if(msg.image) { content = `${replyHtml}<span class="bubble-name" onclick="viewUserProfile('${msg.uid}')"><img class="bubble-avatar" src="${userPic}" onclick="openProfilePopup('${userPic}')">${user.name}</span>${delBtn}<img class="bubble-img" src="${msg.image}" onclick="openProfilePopup('${msg.image}')">`; }
-    else if(msg.audio) { content = `${replyHtml}<span class="bubble-name" onclick="viewUserProfile('${msg.uid}')"><img class="bubble-avatar" src="${userPic}" onclick="openProfilePopup('${userPic}')">${user.name}</span>${delBtn}<audio controls src="${msg.audio}"></audio>`; }
-    else { content = `${replyHtml}<span class="bubble-name" onclick="viewUserProfile('${msg.uid}')"><img class="bubble-avatar" src="${userPic}" onclick="openProfilePopup('${userPic}')">${user.name}</span>${delBtn}<span class="bubble-text">${linkify(msg.text)}</span>`; }
-
-    wrapper.innerHTML = `<div class="reply-hint">↩️</div><div class="bubble ${isMe? 'me-bubble' : 'other-bubble'}" id="bubble-${msgKey}">${content}<div class="bubble-reactions" id="msg-react-${msgKey}"></div></div><div class="react-picker" id="msg-picker-${msgKey}">${REACTIONS.map(r=>`<span onclick="reactToMsg('${msgKey}','${r}')">${r}</span>`).join('')}</div>`;
-    wrapper.addEventListener('touchstart', e => startDrag(e, msgKey), {passive: true});
-    wrapper.addEventListener('touchmove', e => moveDrag(e), {passive: false});
-    wrapper.addEventListener('touchend', e => endDrag(e, msg, msgKey));
-    wrapper.addEventListener('mousedown', e => startDrag(e, msgKey));
-    wrapper.addEventListener('mousemove', e => moveDrag(e));
-    wrapper.addEventListener('mouseup', e => endDrag(e, msg, msgKey));
-    wrapper.addEventListener('mouseleave', e => endDrag(e, msg, msgKey));
-    const reactSum = wrapper.querySelector(`#msg-react-${msgKey}`);
-    const picker = wrapper.querySelector(`#msg-picker-${msgKey}`);
-    let timer; let longPressTriggered = false;
-    reactSum.onmousedown = reactSum.ontouchstart = (e) => { e.stopPropagation(); longPressTriggered = false; timer = setTimeout(()=>{ picker.classList.add('show'); longPressTriggered = true; }, LONG_PRESS); }
-    reactSum.onmouseup = reactSum.ontouchend = reactSum.onmouseleave = () => { clearTimeout(timer); if(!longPressTriggered){ setReaction(`globalChat/${msgKey}/reactions`, '👍') } }
-    document.getElementById('global-chat').appendChild(wrapper);
-    renderReactions(document.getElementById(`msg-react-${msgKey}`), msg.reactions, userReact);
-    onValue(ref(db, `globalChat/${msgKey}/reactions`), (s)=>{ const reacts = s.val() || {}; renderReactions(document.getElementById(`msg-react-${msgKey}`), reacts, reacts[currentUser.uid]); });
-    if(scroll) document.getElementById('global-chat').scrollTop = document.getElementById('global-chat').scrollHeight;
-  }catch(e){ console.error("Message error:", e, snap.key) } // <- added console.error
+  let content = '';
+  if(msg.image) { content = `${replyHtml}<span class="bubble-name" onclick="viewUserProfile('${msg.uid}')"><img class="bubble-avatar" src="${userPic}" onclick="openProfilePopup('${userPic}')">${user.name}</span>${delBtn}<img class="bubble-img" src="${msg.image}" onclick="openProfilePopup('${msg.image}')">`; }
+  else if(msg.audio) { content = `${replyHtml}<span class="bubble-name" onclick="viewUserProfile('${msg.uid}')"><img class="bubble-avatar" src="${userPic}" onclick="openProfilePopup('${userPic}')">${user.name}</span>${delBtn}<audio controls src="${msg.audio}"></audio>`; }
+  else { content = `${replyHtml}<span class="bubble-name"><img class="bubble-avatar" src="${userPic}" onclick="openProfilePopup('${userPic}')">${user.name}</span>${delBtn}<span class="bubble-text">${msg.text}</span>`; }
+  wrapper.innerHTML = `<div class="reply-hint">↩️</div><div class="bubble ${isMe? 'me-bubble' : 'other-bubble'}" id="bubble-${msgKey}">${content}<div class="bubble-reactions" id="msg-react-${msgKey}"></div></div><div class="react-picker" id="msg-picker-${msgKey}">${REACTIONS.map(r=>`<span onclick="reactToMsg('${msgKey}','${r}')">${r}</span>`).join('')}</div>`;
+  wrapper.addEventListener('touchstart', e => startDrag(e, msgKey), {passive: true});
+  wrapper.addEventListener('touchmove', e => moveDrag(e), {passive: false});
+  wrapper.addEventListener('touchend', e => endDrag(e, msg, msgKey));
+  wrapper.addEventListener('mousedown', e => startDrag(e, msgKey));
+  wrapper.addEventListener('mousemove', e => moveDrag(e));
+  wrapper.addEventListener('mouseup', e => endDrag(e, msg, msgKey));
+  wrapper.addEventListener('mouseleave', e => endDrag(e, msg, msgKey));
+  const reactSum = wrapper.querySelector(`#msg-react-${msgKey}`);
+  const picker = wrapper.querySelector(`#msg-picker-${msgKey}`);
+  let timer; let longPressTriggered = false;
+  reactSum.onmousedown = reactSum.ontouchstart = (e) => { e.stopPropagation(); longPressTriggered = false; timer = setTimeout(()=>{ picker.classList.add('show'); longPressTriggered = true; }, LONG_PRESS); }
+  reactSum.onmouseup = reactSum.ontouchend = reactSum.onmouseleave = () => { clearTimeout(timer); if(!longPressTriggered){ setReaction(`globalChat/${msgKey}/reactions`, '👍') } }
+  document.getElementById('global-chat').appendChild(wrapper);
+  renderReactions(document.getElementById(`msg-react-${msgKey}`), msg.reactions, userReact);
+  onValue(ref(db, `globalChat/${msgKey}/reactions`), (s)=>{ const reacts = s.val() || {}; renderReactions(document.getElementById(`msg-react-${msgKey}`), reacts, reacts[currentUser.uid]); });
+  if(scroll) document.getElementById('global-chat').scrollTop = document.getElementById('global-chat').scrollHeight;
 }
 
 window.deleteMsg = async (key) => {
@@ -1568,6 +1374,10 @@ window.deleteMsg = async (key) => {
   }
 }
 window.reactToMsg = async (key, emoji) => { await setReaction(`globalChat/${key}/reactions`, emoji); document.getElementById(`msg-picker-${key}`).classList.remove('show'); }
+
+// THEME SYSTEM
+let currentTheme = localStorage.getItem('chatbeat_theme') || '#00C896';
+let isLightMode = localStorage.getItem('chatbeat_light') === 'true';
 
 window.setTheme = (color) => {
   currentTheme = color;
@@ -1582,6 +1392,19 @@ window.toggleLightMode = () => {
   localStorage.setItem('chatbeat_light', isLightMode);
   applyTheme();
 }
+
+function applyTheme(){
+  const bg = isLightMode ? '#f0f2f5' : '#0b141a';
+  const card = isLightMode ? '#ffffff' : '#202c33';
+  const text = isLightMode ? '#000' : '#fff';
+  document.body.style.background = bg;
+  document.body.style.color = text;
+  document.querySelectorAll('.card, .post-box, .profile-box, .settings-popup, .share-popup').forEach(el=>{
+    el.style.background = card;
+    el.style.color = text;
+  })
+}
+
 // ACCOUNT FUNCTIONS
 window.changeName = async () => {
   const newName = prompt("Enter new display name:");
@@ -1617,82 +1440,7 @@ window.removeProfilePhoto = async () => {
     alert("Photo removed");
   }
 }
-let viewingUserId = null;
 
-window.viewUserProfile = async (uid) => {
-  viewingUserId = uid;
-  const u = await getUser(uid);
-  const myFriendsSnap = await get(ref(db, `friends/${currentUser.uid}`));
-  const isFollowing = myFriendsSnap.exists() && myFriendsSnap.val()[uid];
-
-  document.getElementById('up-pic').src = u.profilePic || DEFAULT_PIC;
-  document.getElementById('up-name').innerText = u.name;
-  document.getElementById('up-name').style.color = u.color;
-  document.getElementById('up-bio').innerText = u.bio || '';
-  document.getElementById('up-location').innerText = [u.city, u.province, u.country].filter(Boolean).join(', ');
-
-  document.getElementById('up-follow-btn').innerText = isFollowing? 'Following' : 'Follow';
-  document.getElementById('up-follow-btn').style.background = isFollowing? '#2a3942' : '#00C896';
-
-  // Show all their edited info
-  let info = '';
-  if(u.school) info += `<b>School:</b> ${u.school} Grade ${u.grade || ''}<br>`;
-  if(u.favSubject) info += `<b>Fav Subject:</b> ${u.favSubject}<br>`;
-  if(u.hobbies) info += `<b>Hobbies:</b> ${u.hobbies}<br>`;
-  if(u.favMusic) info += `<b>Music:</b> ${u.favMusic}<br>`;
-  if(u.favGames) info += `<b>Games:</b> ${u.favGames}<br>`;
-  if(u.favFoods) info += `<b>Foods:</b> ${u.favFoods}<br>`;
-  if(u.relationship) info += `<b>Status:</b> ${u.relationship}<br>`;
-  document.getElementById('up-tab-content-info').innerHTML = info; 
-
-showUpTab('info'); 
-loadUserPosts(uid);
-loadUserVideos(uid);
-
-  document.getElementById('user-profile-popup').classList.add('show');
-}
-
-window.closeUserProfile = () => {
-  document.getElementById('user-profile-popup').classList.remove('show');
-  viewingUserId = null;
-}
-
-window.followFromProfile = async () => {
-  if(!viewingUserId) return;
-  const btn = document.getElementById('up-follow-btn');
-  const followRef = ref(db, `friends/${currentUser.uid}/${viewingUserId}`);
-  const snap = await get(followRef);
-  if(snap.exists()){
-    await remove(followRef);
-    btn.innerText = "Follow";
-    btn.style.background = '#00C896';
-  }
-  else {
-    await set(followRef, true);
-    btn.innerText = "Following";
-    btn.style.background = '#2a3942';
-  }
-}
-
-window.messageFromProfile = async () => {
-  if(!viewingUserId) return;
-  closeUserProfile();
-  const chatId = [currentUser.uid, viewingUserId].sort().join('_');
-  await set(ref(db, `dmChats/${chatId}/members`), {[currentUser.uid]: true, [viewingUserId]: true});
-  openDM(chatId, viewingUserId);
-}
-
-window.pokeFromProfile = async () => {
-  if(!viewingUserId) return;
-  await push(ref(db, `dmChats/${[currentUser.uid, viewingUserId].sort().join('_')}/messages`), {
-    uid: currentUser.uid,
-    text: "👉 POKED YOU!",
-    timestamp: Date.now(),
-    seen: false
-  });
-  alert("Poked " + (await getUser(viewingUserId)).name + "!");
-  closeUserProfile();
-}
 // LINK SOCIAL ACCOUNTS
 window.linkAccount = (type) => {
   const url = prompt(`Paste your ${type} profile link:`);
@@ -1701,19 +1449,40 @@ window.linkAccount = (type) => {
   alert(`${type} linked!`);
 }
 
+// DELETE ACCOUNT FULL WIPE
 window.deleteAccount = async () => { 
   if(confirm("This will delete ALL your data forever. Are you sure?")){
-    // delete user posts
-    const myPosts = await get(query(ref(db,'posts'), orderByChild('uid'), equalTo(currentUser.uid)));
-    myPosts.forEach(s => remove(ref(db, 'posts/' + s.key)));
-    
-    // delete user videos
-    const myVids = await get(query(ref(db,'videos'), orderByChild('uid'), equalTo(currentUser.uid)));
-    myVids.forEach(s => remove(ref(db, 'videos/' + s.key)));
-    
     await remove(ref(db, 'users/'+currentUser.uid));
+    await remove(ref(db, 'posts')).then(()=>{});
+    await remove(ref(db, 'videos')).then(()=>{});
+    await remove(ref(db, 'dmChats')).then(()=>{});
     await deleteUser(currentUser); 
   }
+}
+window.favoriteVideo = async(id, el)=>{
+    const r = ref(db,`favorites/${currentUser.uid}/${id}`);
+    const s = await get(r);
+    if(s.exists()){ 
+      await remove(r);
+      el.style.color = 'white';
+    }
+    else { 
+      await set(r,true);
+      el.style.color = '#00C896'; // highlight when favorited
+    }
+}
+
+window.deleteVideo = async (id)=>{
+    const snap = await get(ref(db,"videos/"+id));
+    if(!snap.exists()) return;
+    if(snap.val().uid !== currentUser.uid){
+      alert("You can only delete your own videos");
+      return;
+    }
+    if(confirm("Delete this video?")){
+      await remove(ref(db, "videos/"+id)); 
+      closeShare();
+    }
 }
 
 document.getElementById('chat-icon-btn').onclick = () => {
@@ -1731,11 +1500,9 @@ document.getElementById('chat-icon-btn').onclick = () => {
 document.getElementById('back-to-feed').onclick = backToFeed;
 document.getElementById('logo-btn').onclick = backToFeed;
 
-document.addEventListener('click', (e) => {
-  if(!e.target.closest('.settings-popup') && !e.target.closest('#settings-btn')){
-    document.querySelectorAll('.react-picker').forEach(p => p.classList.remove('show'));
-    document.querySelectorAll('.react-names-tooltip').forEach(t => t.style.display = 'none');
-  }
+document.addEventListener('click', () => {
+  document.querySelectorAll('.react-picker').forEach(p => p.classList.remove('show'));
+  document.querySelectorAll('.react-names-tooltip').forEach(t => t.style.display = 'none');
 });
 // OPEN EDIT PROFILE AND LOAD DATA
 window.openEditProfile = async () => {
@@ -1814,39 +1581,6 @@ async function loadMyProfile(){
   let loc = [data.city, data.province, data.country].filter(Boolean).join(', ');
   document.getElementById('my-location').innerText = loc;
 }
-function showUpTab(tab){
-  ['info','posts','videos'].forEach(t=>{
-    document.getElementById(`up-tab-content-${t}`).style.display = t===tab? 'block' : 'none';
-    document.getElementById(`up-tab-${t}`).style.borderBottom = t===tab? '2px solid #00C896' : 'none';
-  })
-}
-
-async function loadUserPosts(uid){
-  const box = document.getElementById('up-tab-content-posts');
-  box.innerHTML = 'Loading...';
-  const snap = await get(query(ref(db,'posts'), orderByChild('uid'), equalTo(uid), limitToLast(10)));
-  box.innerHTML = '';
-  snap.forEach(s=>{
-    const p = s.val();
-    box.innerHTML += `<div style="background:#2a3942; padding:8px; border-radius:8px; margin:6px 0">
-      ${p.image? `<img src="${p.image}" style="width:100%; border-radius:8px; margin-bottom:4px">` : ''}
-      <div>${linkify(p.text || '')}</div>
-    </div>`;
-  })
-  if(!snap.exists()) box.innerHTML = 'No posts yet';
-}
-
-async function loadUserVideos(uid){
-  const box = document.getElementById('up-tab-content-videos');
-  box.innerHTML = 'Loading...';
-  const snap = await get(query(ref(db,'videos'), orderByChild('uid'), equalTo(uid), limitToLast(10)));
-  box.innerHTML = '';
-  snap.forEach(s=>{
-    const v = s.val();
-    box.innerHTML += `<video src="${v.video}" controls style="width:100%; border-radius:8px; margin:6px 0"></video>`;
-  })
-  if(!snap.exists()) box.innerHTML = 'No videos yet';
-}
 
 // PRIVACY TOGGLE
 window.togglePrivate = async () => {
@@ -1855,442 +1589,37 @@ window.togglePrivate = async () => {
   alert(isPrivate? "Account is now Private" : "Account is now Public");
 }
 
-// 1. VIDEO AUTOPLAY
-const videoObserver = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    const video = entry.target.querySelector('video');
-    if(entry.isIntersecting){ video.play().catch(()=>{}); }
-    else { video.pause(); }
-  })
-}, { threshold: 0.6 });
+// CALL THIS ON LOGIN
+onAuthStateChanged(auth, async (user) => {
+ if(user) {
+   // ... your existing code ...
+   loadMyProfile(); // ADD THIS LINE
+ }
+});
 
-// 2. TOGGLE COMMENTS
-window.toggleVideoComments = (videoId) => {
-  document.getElementById(`v-comments-${videoId}`).classList.toggle('show');
-}
 
-window.sendVideoComment = async (videoId) => {
-  const inp = document.getElementById(`v-comment-input-${videoId}`);
-  if(!inp.value.trim()) return;
-  try {
-    await push(ref(db, `videos/${videoId}/comments`), {
-      uid: currentUser.uid,
-      text: inp.value,
-      timestamp: Date.now()
-    });
-    inp.value = '';
-  } catch(e) { alert("Error: " + e.message) }
-}
-
-// 4. LOAD COMMENTS
-function loadVideoComments(videoId){
-  const list = document.getElementById(`v-comment-list-${videoId}`);
-  if(!list) return;
-  list.innerHTML = '';
-
-  onChildAdded(ref(db, `videos/${videoId}/comments`), async (snap)=>{
-    const c = snap.val();
-    const u = await getUser(c.uid);
-    const commentId = snap.key;
-    const delBtn = c.uid === currentUser.uid ? `<button class="del-btn" onclick="deleteVideoComment('${videoId}','${commentId}')">×</button>` : '';
-
-    const div = document.createElement('div');
-    div.className = 'video-comment';
-    div.id = 'v-comment-' + commentId;
-    div.innerHTML = `
-      <img class="video-comment-avatar" src="${u.profilePic}" onclick="openProfilePopup('${u.profilePic}')">
-      <div class="video-comment-bubble">
-        <b style="color:${u.color}" onclick="viewUserProfile('${c.uid}')">${u.name}</b><br>
-        ${c.text}
-        <div style="font-size:10px; opacity:0.6">${timeAgo(c.timestamp)}</div>
-        ${delBtn}
-      </div>
-    `;
-    list.appendChild(div);
-  })
-  
-  onChildRemoved(ref(db, `videos/${videoId}/comments`), (snap)=>{
-    document.getElementById('v-comment-' + snap.key)?.remove();
-  })
-}
-window.closeComments = (videoId) => {
-  document.getElementById(`v-comments-${videoId}`).classList.remove('show');
-}
-// 5. DELETE VIDEO COMMENT
-window.deleteVideoComment = (videoId, commentId) => {
-  if(confirm('Delete comment?')) remove(ref(db, `videos/${videoId}/comments/${commentId}`));
-}
-
-// 6. REAL LIKE BUTTON
-window.likeVideo = async(id, el)=>{
-  const r = ref(db,`videos/${id}/likes/${currentUser.uid}`);
-  const s = await get(r);
-  const span = el.querySelector('span');
-  if(s.exists()){ 
-    await remove(r);
-    el.style.color = 'white';
-    span.innerText = parseInt(span.innerText) - 1;
-  }
-  else { 
-    await set(r,true);
-    el.style.color = '#FF0050';
-    span.innerText = parseInt(span.innerText) + 1;
-  }
-}
-
-// 7. REAL FAVORITE BUTTON
-window.favoriteVideo = async(id, el)=>{
-  const r = ref(db,`videos/${id}/favorites/${currentUser.uid}`);
-  const s = await get(r);
-  if(s.exists()){ 
-    await remove(r);
-    el.style.color = 'white';
-  }
-  else { 
-    await set(r,true);
-    el.style.color = '#00C896';
-  }
-}
-
-// 8. REAL FOLLOW BUTTON
-window.followUserFromVideo = async(uid, el) => {
-  const r = ref(db, `users/${currentUser.uid}/following/${uid}`);
+// LIKE VIDEO COMMENT
+window.likeVideoComment = async(videoId, commentId, btn) => {
+  const r = ref(db, `videos/${videoId}/comments/${commentId}/likes/${currentUser.uid}`);
   const s = await get(r);
   if(s.exists()){
     await remove(r);
-    el.innerText = 'Follow';
-    el.style.background = '#00C896';
+    btn.style.color = '#aaa';
   } else {
     await set(r, true);
-    el.innerText = 'Following';
-    el.style.background = '#2a3942';
+    btn.style.color = '#ff3b30';
   }
 }
 
-// 9. DELETE VIDEO
-window.deleteVideo = async(id) => {
-  if(!confirm('Delete this video?')) return;
-  await remove(ref(db, `videos/${id}`));
-  document.querySelector(`.video-card[data-id="${id}"]`)?.remove();
-}
-
-// 10. SHARE POPUP WITH ALL OPTIONS
-window.openVideoShare = (videoId) => {
-  const url = `${window.location.origin}${window.location.pathname}?video=${videoId}`;
-  const popup = document.getElementById('video-share-popup');
-  popup.innerHTML = `
-    <h3>Share Video</h3>
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:15px 0">
-      <button onclick="navigator.clipboard.writeText('${url}'); alert('Copied!')">📋<br>Copy</button>
-      <button onclick="window.open('https://wa.me/?text=${url}')">📱<br>WhatsApp</button>
-      <button onclick="window.open('https://www.instagram.com/')">📷<br>Instagram</button>
-      <button onclick="window.open('https://twitter.com/intent/tweet?url=${url}')">🐦<br>Twitter</button>
-      <button onclick="window.open('https://www.tiktok.com/')">🎵<br>TikTok</button>
-      <button onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${url}')">f<br>Facebook</button>
-    </div>
-    <button onclick="deleteVideo('${videoId}')" style="background:red; width:100%">🗑️ Delete Video</button>
-    <button onclick="pinVideo('${videoId}')" style="background:#00C896; width:100%; margin-top:8px">📌 Pin Video</button>
-   <button class="link-btn" onclick="document.getElementById('video-share-popup').style.display='none'">Cancel</button>
-  `;
-  popup.style.display = 'block';
-}
-
-// 11. PIN VIDEO
-window.pinVideo = async(videoId) => {
-  await set(ref(db, `users/${currentUser.uid}/pinnedVideo`), videoId);
-  alert('Video pinned to your profile!');
-  document.getElementById('video-share-popup').style.display = 'none';
-}
-window.countVideoView = async (videoId, videoEl) => {
-  // 1. Count the view in Firebase
-  const viewRef = ref(db, `videos/${videoId}/views`);
-  const snap = await get(viewRef);
-  await set(viewRef, (snap.val() || 0) + 1);
-  
-  // 2. Play/Pause
-  videoEl.paused ? videoEl.play() : videoEl.pause();
-}
-function loadVideos(){
-  off(ref(db, 'videos')); 
-  document.getElementById('video-feed').innerHTML = '';
-
-  onChildRemoved(ref(db, 'videos'), (snap) => {
-    document.querySelector(`.video-card[data-id="${snap.key}"]`)?.remove();
-  });
-
-  onChildAdded(query(ref(db, 'videos'), orderByChild('timestamp'), limitToLast(20)), async (snap) => {
-    const v = snap.val(); 
-    if(!allVideosCache.find(v=>v.id===snap.key)) allVideosCache.push({id: snap.key, ...v});
-    const u = await getUser(v.uid);
-    const isFollowing = (await get(ref(db, `users/${currentUser.uid}/following/${v.uid}`))).exists();
-    const isLiked = (await get(ref(db, `videos/${snap.key}/likes/${currentUser.uid}`))).exists();
-    const isFav = (await get(ref(db, `videos/${snap.key}/favorites/${currentUser.uid}`))).exists();
-    const isOwner = v.uid === currentUser.uid;
-
-    const div = document.createElement('div'); 
-    div.className = 'video-card';
-    div.setAttribute('data-id', snap.key);
-    div.innerHTML = `
-      <video src="${v.video}" loop playsinline onclick="countVideoView('${snap.key}', this)"></video>
-      <div class="video-info">
-        <h4>@${u.name}</h4>
-        <p>${v.desc || ""}</p>
-<small style="opacity:0.7">${v.views || 0} views</small>
-      </div>
-      <div class="video-sidebar">
-        <div class="profile-wrap">
-          <img class="side-profile" src="${u.profilePic}" onclick="viewUserProfile('${v.uid}')">
-          ${!isOwner ? `<button class="plus-badge" onclick="followUserFromVideo('${v.uid}', this)">${isFollowing ? '✓' : '+'}</button>` : ''}
-        </div>
-        <div class="video-action" onclick="likeVideo('${snap.key}', this)" style="color:${isLiked?'#FF0050':'white'}">❤️<span>${Object.keys(v.likes || {}).length}</span></div>
-        <div class="video-action" onclick="toggleVideoComments('${snap.key}')">💬<span>${Object.keys(v.comments || {}).length}</span></div>
-        <div class="video-action" onclick="favoriteVideo('${snap.key}', this)" style="color:${isFav?'#00C896':'white'}">🔖<span>${Object.keys(v.favorites || {}).length}</span></div>
-        <div class="video-action" onclick="openVideoShare('${snap.key}')">↗<span>${Object.keys(v.shares || {}).length}</span></div>
-        <div class="music-disc">🎵</div>
-      </div>
-      
-      <div class="video-comments-section" id="v-comments-${snap.key}">
-  <div style="display:flex; justify-content:space-between; align-items:center; padding:10px; border-bottom:1px solid #333; position:sticky; top:0; background:#111; z-index:2">
-    <b>Comments</b>
-    <button onclick="closeComments('${snap.key}')" style="background:none; border:none; color:white; font-size:20px; cursor:pointer">×</button>
-  </div>
-  <div id="v-comment-list-${snap.key}"></div> 
-  <div class="video-comment-input-row">
-    <input id="v-comment-input-${snap.key}" placeholder="Add comment...">
-    <button onclick="sendVideoComment('${snap.key}')">➤</button>
-  </div>
-</div>
-
-    `;
-    document.getElementById('video-feed').prepend(div);
-    loadVideoComments(snap.key);
-    videoObserver.observe(div);
-  })
-}
-let searchTab = 'all';
-
-window.openSearch = () => {
-  document.getElementById('search-popup').classList.add('show');
-  document.getElementById('search-input').focus();
-  loadSearchData(); // load posts + videos once
-}
-
-window.closeSearch = () => {
-  document.getElementById('search-popup').classList.remove('show');
-  document.getElementById('search-results').innerHTML = '';
-  document.getElementById('search-input').value = '';
-}
-
-window.setSearchTab = (tab) => {
-  searchTab = tab;
-  ['all','people','posts','videos'].forEach(t=>{
-    document.getElementById(`s-tab-${t}`).style.background = t===tab? '#00C896' : '#2a3942';
-  })
-  handleSearch(); // refresh results
-}
-
-async function loadSearchData(){
-  // Cache all posts and videos so search is fast
-  if(allPostsCache.length === 0){
-    const snap = await get(ref(db, 'posts'));
-    allPostsCache = [];
-    snap.forEach(s=> allPostsCache.push({id: s.key, ...s.val()}));
-  }
-  if(allVideosCache.length === 0){
-    const snap = await get(ref(db, 'videos'));
-    allVideosCache = [];
-    snap.forEach(s=> allVideosCache.push({id: s.key, ...s.val()}));
-  }
-}
-let trendingCache = [];
-
-async function loadTrending(){
-  // Get top 10 hashtags from posts + videos
-  const tagCount = {};
-  allPostsCache.forEach(p => p.hashtags?.forEach(t => tagCount[t] = (tagCount[t]||0)+1));
-  allVideosCache.forEach(v => v.hashtags?.forEach(t => tagCount[t] = (tagCount[t]||0)+1));
-
-  trendingCache = Object.entries(tagCount)
-   .sort((a,b)=>b[1]-a[1])
-   .slice(0,10)
-   .map(([tag, count]) => ({tag, count}));
-}
-
-function showSuggestions(query){
-  const box = document.getElementById('search-suggestions');
-  if(!query){
-    // Show trending when empty
-    if(trendingCache.length === 0) loadTrending();
-    box.innerHTML = `<b>🔥 Trending</b><div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px">
-      ${trendingCache.map(t=>`<span onclick="searchTag('${t.tag}')" style="background:#2a3942; padding:6px 10px; border-radius:20px; cursor:pointer">#${t.tag}</span>`).join('')}
-    </div>`;
-    return;
-  }
-
-  // Predictive: show hashtags and users matching what they type
-  const matchingTags = trendingCache.filter(t => t.tag.includes(query.toLowerCase()));
-  const matchingUsers = allUsersCache.filter(u => u.name.toLowerCase().includes(query.toLowerCase())).slice(0,3);
-
-  let html = '';
-  if(matchingTags.length) html += `<b>Hashtags</b><br>${matchingTags.map(t=>`<div onclick="searchTag('${t.tag}')" style="padding:6px; cursor:pointer">#${t.tag} <small>${t.count} posts</small></div>`).join('')}`;
-  if(matchingUsers.length) html += `<b style="margin-top:8px; display:block">People</b>${matchingUsers.map(u=>`<div onclick="viewUserProfile('${u.uid}'); closeSearch()" style="display:flex; gap:8px; padding:6px; cursor:pointer"><img src="${u.profilePic}" style="width:24px; height:24px; border-radius:50%"> ${u.name}</div>`).join('')}`;
-
-  box.innerHTML = html;
-}
-
-window.searchTag = (tag) => {
-  document.getElementById('search-input').value = '#' + tag;
-  handleSearch();
-}
-
-async function handleSearch(e){
-  const query = document.getElementById('search-input').value.toLowerCase().trim();
-  showSuggestions(query); // if you added predictive search
-
-  const results = document.getElementById('search-results');
-  if(!query){ results.innerHTML = '<p style="text-align:center; opacity:0.6">Type to search...</p>'; return; }
-  
-  results.innerHTML = 'Searching...';
-  let html = '';
-
-  // 1. SEARCH PEOPLE
-  if(searchTab === 'all' || searchTab === 'people'){
-    const people = allUsersCache.filter(u => u.name.toLowerCase().includes(query));
-    if(people.length > 0){
-      html += `<h4>👤 People</h4>`;
-      people.forEach(u=>{
-        html += `
-        <div class="friend-item" onclick="viewUserProfile('${u.uid}'); closeSearch()">
-          <div style="display:flex; gap:10px; align-items:center">
-            <img style="width:40px;height:40px;border-radius:50%" src="${u.profilePic}">
-            <b>${u.name}</b>
-          </div>
-        </div>`;
-      })
-    }
-  }
-
-  // 2. SEARCH POSTS - NOW WITH HASHTAGS + MENTIONS
-  if(searchTab === 'all' || searchTab === 'posts'){
-    const posts = allPostsCache.filter(p => 
-      (p.text && p.text.toLowerCase().includes(query)) ||
-      (p.hashtags && p.hashtags.join(' ').toLowerCase().includes(query)) || // <-- #viral
-      (p.mentions && p.mentions.join(' ').toLowerCase().includes(query))   // <-- @user
-    );
-    if(posts.length > 0){
-      html += `<h4>📝 Posts</h4>`;
-      for(const p of posts){
-        const u = await getUser(p.uid);
-        html += `
-        <div class="card" style="cursor:pointer" onclick="jumpToPost('${p.id}'); closeSearch()">
-          <div class="card-header">
-            <img class="card-avatar" src="${u.profilePic}">
-            <b style="color:${u.color}">${u.name}</b>
-          </div>
-          <div>${linkify(p.text?.substring(0,100) || '')}</div>
-          ${p.image? `<img class="card-post-img" src="${p.image}">` : ''}
-        </div>`;
-      }
-    }
-  }
-
-  // 3. SEARCH VIDEOS - NOW WITH HASHTAGS
-  if(searchTab === 'all' || searchTab === 'videos'){
-    const videos = allVideosCache.filter(v => 
-      (v.desc && v.desc.toLowerCase().includes(query)) ||
-      (v.hashtags && v.hashtags.join(' ').toLowerCase().includes(query)) // <-- #dance
-    );
-    if(videos.length > 0){
-      html += `<h4>🎥 Videos</h4>`;
-      for(const v of videos){
-        const u = await getUser(v.uid);
-        html += `
-        <div class="card" style="cursor:pointer" onclick="jumpToVideo('${v.id}'); closeSearch()">
-          <div class="card-header">
-            <img class="card-avatar" src="${u.profilePic}">
-            <b style="color:${u.color}">${u.name}</b>
-          </div>
-          <video src="${v.video}" style="width:100%; border-radius:8px; max-height:200px"></video>
-          <div>${linkify(v.desc || '')}</div>
-        </div>`;
-      }
-    }
-  }
-
-  // NUMBER 3: NICE NO RESULTS
-  if(html === '') html = `
-    <p style="text-align:center; opacity:0.6">No results for "${query}"</p>
-    <p style="text-align:center; font-size:12px">Try: #viral, @usernames, or keywords</p>
-  `;
-  
-  results.innerHTML = html;
-}
-// JUMP TO POST
-window.jumpToPost = (postId) => {
-  backToFeed();
-  document.getElementById('feed-section').style.display = 'block';
-  const el = document.getElementById('post-' + postId);
-  if(el){ el.scrollIntoView({behavior: 'smooth', block: 'center'}); el.style.border = '2px solid #00C896'; }
-}
-
-// JUMP TO VIDEO  
-window.jumpToVideo = (videoId) => {
-  openVideos();
-  setTimeout(()=>{
-    const el = document.querySelector(`.video-card[data-id="${videoId}"]`);
-    if(el){ el.scrollIntoView({behavior: 'smooth', block: 'center'}); el.style.border = '2px solid #00C896'; }
-  }, 300)
-}
-
-window.searchUserByName = async (username) => {
-  const user = allUsersCache.find(u => u.name.toLowerCase() === username.toLowerCase());
-  if(user) viewUserProfile(user.uid);
-  else alert('User @' + username + ' not found');
-}
-let trendingTagsCache = []; // we’ll fill this from posts
-
-window.handleMentionsAndTags = (e) => {
-  const text = e.target.value;
-  const lastWord = text.split(' ').pop();
-  const mentionBox = document.getElementById('mention-suggestions');
-  const tagBox = document.getElementById('hashtag-suggestions');
-  mentionBox.style.display = 'none';
-  tagBox.style.display = 'none';
-
-  if(lastWord.startsWith('@')){
-    const query = lastWord.slice(1).toLowerCase();
-    const matches = allUsersCache.filter(u => u.name.toLowerCase().includes(query)).slice(0,5);
-    mentionBox.innerHTML = matches.map(u=>`<div onclick="insertMention('${u.name}')" style="padding:8px; cursor:pointer; display:flex; gap:8px"><img src="${u.profilePic}" style="width:24px; border-radius:50%"> ${u.name}</div>`).join('');
-    mentionBox.style.display = matches.length? 'block' : 'none';
-  }
-
-  if(lastWord.startsWith('#')){
-    const query = lastWord.slice(1).toLowerCase();
-    if(trendingCache.length === 0) loadTrending();
-    const matches = trendingCache.map(t=>t.tag).filter(t => t.includes(query)).slice(0,8);
-    tagBox.innerHTML = matches.map(t=>`<div onclick="insertTag('${t}')" style="padding:8px; cursor:pointer">#${t}</div>`).join('');
-    if(matches.length === 0 && query) tagBox.innerHTML = `<div style="padding:8px; opacity:0.6">Create #${query}</div>`;
-    tagBox.style.display = 'block';
+// DELETE VIDEO COMMENT
+window.deleteVideoComment = async(videoId, commentId) => {
+  if(confirm("Delete comment?")){
+    await remove(ref(db, `videos/${videoId}/comments/${commentId}`));
   }
 }
 
-window.insertMention = (name) => {
-  const input = document.getElementById('post-text');
-  const words = input.value.split(' ');
-  words[words.length-1] = '@' + name;
-  input.value = words.join(' ') + ' ';
-  document.getElementById('mention-suggestions').style.display = 'none';
-  input.focus();
-}
-
-window.insertTag = (tag) => {
-  const input = document.getElementById('post-text');
-  const words = input.value.split(' ');
-  words[words.length-1] = '#' + tag;
-  input.value = words.join(' ') + ' ';
-  document.getElementById('hashtag-suggestions').style.display = 'none';
-  input.focus();
-}
 </script>
 </body>
 </html>
+
+    
