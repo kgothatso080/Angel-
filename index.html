@@ -968,6 +968,12 @@ async function getUser(uid){
   userCache[uid] = user;
   return user;
 }
+function linkify(text){
+  if(!text) return '';
+  return text
+   .replace(/#(\w+)/g, '<span onclick="searchTag(\'$1\')" style="color:#00C896; cursor:pointer">#$1</span>')
+   .replace(/@(\w+)/g, '<span onclick="searchUserByName(\'$1\')" style="color:#00C896; cursor:pointer">@$1</span>')
+}
 function loadComments(postKey){
   off(ref(db, `posts/${postKey}/comments`));
   const list = document.getElementById(`comment-list-${postKey}`);
@@ -2260,12 +2266,7 @@ window.jumpToVideo = (videoId) => {
     if(el){ el.scrollIntoView({behavior: 'smooth', block: 'center'}); el.style.border = '2px solid #00C896'; }
   }, 300)
 }
-function linkify(text){
-  if(!text) return '';
-  return text
-   .replace(/#(\w+)/g, '<span onclick="searchTag(\'$1\')" style="color:#00C896; cursor:pointer">#$1</span>')
-   .replace(/@(\w+)/g, '<span onclick="searchUserByName(\'$1\')" style="color:#00C896; cursor:pointer">@$1</span>')
-}
+
 window.searchUserByName = async (username) => {
   const user = allUsersCache.find(u => u.name.toLowerCase() === username.toLowerCase());
   if(user) viewUserProfile(user.uid);
